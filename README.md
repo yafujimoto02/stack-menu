@@ -53,8 +53,3 @@ Your stack: 10
 
 ---
 
----
-
-## 📝 License
-
-This project is for educational purposes.
