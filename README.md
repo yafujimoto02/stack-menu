@@ -1,4 +1,4 @@
-# Stack Implementation in C
+# Stack in C
 
 ## Overview
 
