@@ -4,7 +4,6 @@
 
 This project implements a stack data structure in C using an array.
 It supports basic stack operations and provides an interactive command-line interface for user input.
----
 
 ## Features
 * Push (add element to stack)
