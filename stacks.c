@@ -12,47 +12,68 @@ typedef struct {
 
 // Function to initialize stack
 void initialize(Stack *stack) {
+    if (stack == NULL) return; // check for NULL pointer
     stack->top = -1;  
 }
 
 // Function to check if stack is empty
 bool isEmpty(Stack *stack) {
+    if (stack == NULL) return true; // NULL is empty
     return stack->top == -1;  
 }
 
 // Function to check if stack is full
 bool isFull(Stack *stack) {
+    if (stack == NULL) return false; // NULL stack cannot be full
     return stack->top >= MAX_SIZE - 1;  
 }
 
 // Push an element to top of stack
 void push(Stack *stack, int value) {
+    if (stack == NULL) { 
+        printf("Error: Stack pointer is NULL\n");
+        return;
+    }
+
     if (isFull(stack)) { // if it surpasses max amount of values
         printf("Stack Overflow\n");
         return;
     }
+
     stack->arr[++stack->top] = value; 
 }
 
 // Pop an element from the stack
-int pop(Stack *stack) {
-    if (isEmpty(stack)) {
-        printf("Stack Underflow\n"); //no values
-        return -1;
+bool pop(Stack *stack, int *result) {
+    if (stack == NULL) {
+        printf("Error: Stack pointer is NULL\n");
+        return false;
     }
 
-    int popped = stack->arr[stack->top];
+    if (isEmpty(stack)) {
+        printf("Stack Underflow\n"); // no values to pop
+        return false;
+    }
+
+    *result = stack->arr[stack->top]; // store popped value 
     stack->top--;
-    return popped;
+    return true;
 }
 
 // Show top element of the stack
-int peek(Stack *stack) {
+bool peek(Stack *stack, int *result) {
+    if (stack == NULL) {
+        printf("Error: Stack pointer is NULL\n");
+        return false;
+    }
+
     if (isEmpty(stack)) {
         printf("Stack is empty\n");
-        return -1;
+        return false;
     }
-    return stack->arr[stack->top];
+
+    *result = stack->arr[stack->top];
+    return true;
 }
 
 int main() {
@@ -78,18 +99,24 @@ int main() {
                 break;
 
             case 2:
-                pop(&stack);
+                //  print if pop was successful
+                if (pop(&stack, &value)) {
+                    printf("Popped: %d\n", value);
+                }
                 break;
 
             case 3:
-                printf("Top element: %d\n", peek(&stack));
+                //  print if peek was successful
+                if (peek(&stack, &value)) {
+                    printf("Top element: %d\n", value);
+                }
                 break;
 
             case 4:
                 if (isEmpty(&stack)) {
                     printf("Stack is empty\n");
                 } else {
-                    printf("Your stacks: ");
+                    printf("Your stack: ");
                     for (int i = 0; i <= stack.top; i++) {
                         printf("%d ", stack.arr[i]);
                     }
